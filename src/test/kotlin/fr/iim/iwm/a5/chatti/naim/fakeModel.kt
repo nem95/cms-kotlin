@@ -1,6 +1,6 @@
 package fr.iim.iwm.a5.chatti.naim
 
-class MysqlModel : Model {
+class FakeModel : Model {
     val connectionPool = ConnectionPool("jdbc:mysql://localhost:6000/cms", "root", "root")
 
     override fun getArticleList(): List<Article> {

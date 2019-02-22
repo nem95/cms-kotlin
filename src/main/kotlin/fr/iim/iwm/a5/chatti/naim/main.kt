@@ -13,9 +13,6 @@ import io.ktor.server.netty.Netty
 
 class App
 
-data class Article(val id: Int, val title: String, val text: String? = null)
-data class IndexData(val articles: List<Article>)
-
 fun Application.cmsApp(
     articleListController: ArticleListController,
     articleController: ArticleControllerImpl

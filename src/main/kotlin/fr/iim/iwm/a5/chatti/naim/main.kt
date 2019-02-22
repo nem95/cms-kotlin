@@ -39,7 +39,7 @@ fun Application.cmsApp(
 }
 
 fun main() {
-    val model = MysqlModel()
+    val model = MysqlModel("jdbc:mysql://localhost:6000/cms", "root", "root")
 
     val articleListController = ArticleListControllerImpl(model)
     val articleController = ArticleControllerImpl(model)

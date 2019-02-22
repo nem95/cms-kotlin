@@ -24,6 +24,9 @@ dependencies {
 
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.jetbrains.kotlin:kotlin-test'
+    testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0-RC1'
+    testImplementation 'com.h2database:h2:1.4.197'
+
 }
 
 compileKotlin {

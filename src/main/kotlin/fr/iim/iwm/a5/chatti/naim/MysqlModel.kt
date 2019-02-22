@@ -1,7 +1,7 @@
 package fr.iim.iwm.a5.chatti.naim
 
-class MysqlModel : Model {
-    val connectionPool = ConnectionPool("jdbc:mysql://localhost:6000/cms", "root", "root")
+class MysqlModel(url: String, user: String?, password: String?) : Model {
+    val connectionPool = ConnectionPool(url, user, password)
 
     override fun getArticleList(): List<Article> {
         val articles = ArrayList<Article>()

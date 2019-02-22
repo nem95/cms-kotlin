@@ -7,7 +7,7 @@ import io.ktor.html.HtmlContent
 import io.ktor.http.HttpStatusCode
 import kotlinx.html.HTML
 
-class ArticleListControllerImpl(private val model: MysqlModel) : ArticleListController {
+class ArticleListControllerImpl(private val model: Model) : ArticleListController {
 
     override fun  startFM(): Any {
         val articles = model.getArticleList()

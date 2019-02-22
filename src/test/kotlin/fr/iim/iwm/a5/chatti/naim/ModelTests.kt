@@ -1,6 +1,5 @@
 package fr.iim.iwm.a5.chatti.naim
-
-import org.junit.Before
+                import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
@@ -8,24 +7,25 @@ import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 class ModelTests {
-    val model = MysqlModel("jdbc:h2:meme:cms;MODE=MYSQL", null, null)
+    // val model = MysqlModel("jdbc:h2:meme:cms;MODE=MYSQL", null, null)
+    val model = MysqlModel("jdbc:h2:mem:cms;MODE=MYSQL", null, null)
+
 
     @Before
     fun initDB() {
         model.connectionPool.use { connection ->
             connection.prepareStatement("""
-                CREATE TABLE articles
-                (
-                  id INT(11) AUTO_INCREMENT PRIMARY KEY,
-                  title VARCHAR(255) NOT NULL,
-                  text  text NOT NULL,
-                  CONSTRAINT articles_id_uindex
-                  UNIQUE (id)
-                )
-                INSERT INTO `articles` VALUES
-                (1, 'premier artcile', 'lorem ipsum lorem')
-                (2, 'second artcile', 'lorem ipsum lorem')
-            """).use { stmt ->
+                DROP TABLE IF EXISTS articles;
+                CREATE TABLE articles (
+                  id int(11) NOT NULL AUTO_INCREMENT,
+                  title varchar(255) NOT NULL,
+                  text text NOT NULL,
+                  PRIMARY KEY (id)
+                );
+                INSERT INTO articles VALUES
+                  (1, 'Premier article', 'Lorem ipsum le premier article'),
+                  (2, 'Deuxième article', 'Lorem ipsum le 2ème article')"""
+            ).use { stmt ->
                 stmt.execute()
             }
         }
@@ -37,8 +37,8 @@ class ModelTests {
 
         assertNotNull(article)
         assertEquals(1, article.id)
-        assertEquals("premier artcile", article.title)
-        assertTrue(article.text!!.startsWith("lorem ipsum "))
+        assertEquals("Premier article", article.title)
+        assertTrue(article.text!!.startsWith("Lorem ipsum"))
     }
 
     @Test

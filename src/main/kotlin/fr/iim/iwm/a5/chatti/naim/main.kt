@@ -23,13 +23,13 @@ fun Application.cmsApp(
 
     routing {
         get("/") {
-            val content = articleListController.startHD()
+            val content = articleListController.startFM()
             call.respond(content)
         }
 
         get("/article/{id}") {
             val id = call.parameters["id"]!!.toInt()
-            val content = articleController.startHD(id)
+            val content = articleController.startFM(id)
             call.respond(content)
         }
     }

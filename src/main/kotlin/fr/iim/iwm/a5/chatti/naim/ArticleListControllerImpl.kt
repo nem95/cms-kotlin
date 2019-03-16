@@ -10,9 +10,10 @@ import kotlinx.html.HTML
 class ArticleListControllerImpl(private val model: Model) : ArticleListController {
 
     override fun  startFM(): Any {
-        val articles = model.getArticleList()
+        val articles = IndexData(model.getArticleList())
+
         if (articles !== null) {
-            return  FreeMarkerContent("index.ftl", articles)
+            return  FreeMarkerContent("index.ftl", articles, "e")
         }
         return HttpStatusCode.NotFound
     }

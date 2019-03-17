@@ -24,6 +24,8 @@ dependencies {
     implementation "mysql:mysql-connector-java:8.0.15"
     implementation "io.ktor:ktor-freemarker:1.1.2"
     implementation "io.ktor:ktor-html-builder:1.1.2"
+    implementation "io.ktor:ktor-auth:1.1.2"
+    implementation 'jbcrypt:jbcrypt:0.3'
 
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.jetbrains.kotlin:kotlin-test'

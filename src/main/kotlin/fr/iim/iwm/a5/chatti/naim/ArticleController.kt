@@ -1,6 +1,6 @@
 package fr.iim.iwm.a5.chatti.naim
 
 interface ArticleController {
-    fun  startFM(id: Int): Any
-    fun  startHD(id: Int): Any
+    fun  showArticle(id: Int): Any
+    fun  commentArticle(id: Int, textComment: String): Any?
 }

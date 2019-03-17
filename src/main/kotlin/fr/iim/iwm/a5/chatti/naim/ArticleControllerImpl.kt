@@ -1,25 +1,21 @@
 package fr.iim.iwm.a5.chatti.naim
 
-import fr.iim.iwm.a5.chatti.naim.templates.ArticleTemplate
 import io.ktor.freemarker.FreeMarkerContent
 import io.ktor.http.HttpStatusCode
-import io.ktor.html.HtmlContent
 
 class ArticleControllerImpl(private val model: Model) : ArticleController {
 
-    override fun  startFM(id: Int): Any {
+    override fun  showArticle(id: Int): Any {
         val article = model.getArticle(id)
+        val comments = model.getArticleComments(id)
+
         if (article !== null) {
-            return  FreeMarkerContent("article.ftl", mapOf("article" to article), "e")
+            return  FreeMarkerContent("article.ftl", mapOf("article" to article, "comments" to comments), "e")
         }
         return HttpStatusCode.NotFound
     }
 
-    override fun  startHD(id: Int): Any {
-        val article = model.getArticle(id)
-        if (article !== null) {
-            return  HtmlContent { ArticleTemplate(article)}
-        }
-        return HttpStatusCode.NotFound
+    override fun commentArticle(id: Int, textComment: String): Any? {
+        return  model.createComment(id, textComment)
     }
 }

@@ -15,6 +15,18 @@ class ArticleControllerImpl(private val model: Model) : ArticleController {
         return HttpStatusCode.NotFound
     }
 
+    override fun createArticleForm(): FreeMarkerContent {
+        return FreeMarkerContent("create_article.ftl", null, "e")
+    }
+
+    override fun createArticle(title: String, textContent: String): Any? {
+        return model.createArticle(title, textContent)
+    }
+
+    override fun delete(id: Int): Any? {
+        return model.deleteArticle(id)
+    }
+
     override fun commentArticle(id: Int, textComment: String): Any? {
         return  model.createComment(id, textComment)
     }

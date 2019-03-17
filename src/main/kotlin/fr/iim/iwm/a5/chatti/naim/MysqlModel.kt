@@ -76,6 +76,29 @@ class MysqlModel(url: String, user: String?, password: String?) : Model {
         return null
     }
 
+    override fun createArticle(title: String, textContent: String): Any? {
+        connectionPool.use { connection ->
+            connection.prepareStatement("INSERT INTO articles (title, text) VALUES (?, ?);").use { stmt ->
+                stmt.setString(1, title)
+                stmt.setString(2, textContent)
+
+                return stmt.execute()
+            }
+        }
+        return null
+    }
+
+    override fun deleteArticle(id: Int): Any? {
+        connectionPool.use { connection ->
+            connection.prepareStatement("DELETE FROM articles WHERE id = ?;").use { stmt ->
+                stmt.setInt(1, id)
+
+                return stmt.execute()
+            }
+        }
+        return null
+    }
+
     override fun createComment (id: Int, textComment: String): Any? {
         connectionPool.use { connection ->
             connection.prepareStatement("INSERT INTO commentaire (idArticle, text) VALUES (?, ?);").use { stmt ->

@@ -91,6 +91,46 @@ fun Application.cmsApp(
 
                 call.respondRedirect("/admin")
             }
+
+            get("/admin") {
+                val template = adminController.dashboard()
+
+                call.respond(template)
+            }
+
+            get("/admin/article/create") {
+                val template = articleController.createArticleForm()
+
+                call.respond(template)
+            }
+
+            post("/admin/article/create") {
+                val postParameters: Parameters = call.receiveParameters()
+
+                val textContent = postParameters["textContent"]
+                val title = postParameters["title"]
+
+                if (textContent !== null && title != null) {
+                    articleController.createArticle(title, textContent)
+                    call.respondRedirect("/admin")
+                }
+
+                call.respondRedirect("/admin/article/create")
+            }
+
+            post("/article/delete/{id}") {
+                val id = call.parameters["id"]!!.toInt()
+
+                articleController.delete(id)
+
+                call.respondRedirect("/admin")
+            }
+
+            get("/logout") {
+                call.sessions.clear<Session>()
+
+                call.respondRedirect("/")
+            }
         }
     }
 }

@@ -35,9 +35,13 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-1">
+                                    <div class="col-xs-6 offset-xs-3 col-md-1">
                                         <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
-
+                                    </div>
+                                    <div class="col-md-8">
+                                        <p>${comment.text}</p>
+                                    </div>
+                                    <div class="col-md-3">
                                         <#if userConnected>
                                             <div class="col-sm-6">
                                                 <form action="/comment/delete/${comment.id}" method="post">
@@ -46,9 +50,6 @@
                                                 </form>
                                             </div>
                                         </#if>
-                                    </div>
-                                    <div class="col-md-11">
-                                        <p>${comment.text}</p>
                                     </div>
                                 </div>
                             </div>

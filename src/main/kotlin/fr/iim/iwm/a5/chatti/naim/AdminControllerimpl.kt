@@ -1,8 +1,6 @@
 package fr.iim.iwm.a5.chatti.naim
 
-import io.ktor.auth.UserIdPrincipal
 import io.ktor.freemarker.FreeMarkerContent
-import io.ktor.http.HttpStatusCode
 
 class AdminControllerImpl(private val model: Model) : AdminController {
     override fun registerForm(): FreeMarkerContent {

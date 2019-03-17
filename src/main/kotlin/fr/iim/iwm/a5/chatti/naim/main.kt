@@ -16,7 +16,6 @@ import io.ktor.routing.routing
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
 import io.ktor.sessions.*
-import fr.iim.iwm.a5.chatti.naim.Session
 
 class App
 

@@ -2,7 +2,6 @@ package fr.iim.iwm.a5.chatti.naim
 
 import java.sql.Connection
 import java.sql.DriverManager
-import java.util.*
 import java.util.concurrent.ConcurrentLinkedQueue
 
 class ConnectionPool(val url: String, val user: String?, val password: String?) {

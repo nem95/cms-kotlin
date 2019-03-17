@@ -1,9 +1,8 @@
 package fr.iim.iwm.a5.chatti.naim
 
-import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
-import io.ktor.html.HtmlContent
+import io.ktor.freemarker.FreeMarkerContent
 import io.ktor.http.HttpStatusCode
 import org.junit.Test
 import kotlin.test.assertEquals
@@ -11,25 +10,57 @@ import kotlin.test.assertTrue
 
 class ArticleTests {
     @Test
-    fun testArticleFound() {
+    fun testArticle() {
+
         val model = mock<Model> {
-            on  { getArticle(42) } doReturn Article(42, "super titre", "text text text")
+            on { getArticle(43) } doReturn Article(43, "Titre", "Text")
+
+
         }
 
-        val articleController = ArticleControllerImpl(model)
+        val articlesControllerImp = ArticleControllerImpl(model)
 
-        val result = articleController.startHD(42)
-        assertTrue(result is HtmlContent)
+        val article = articlesControllerImp.showArticle(43, null)
+
+        assertTrue(article is FreeMarkerContent)
     }
 
     @Test
-    fun testArticleNotFound() {
+    fun testNoArticle() {
         val model = mock<Model> {}
 
+        val articlesControllerImp = ArticleControllerImpl(model)
 
-        val articleController = ArticleControllerImpl(FakeModel())
+        val article = articlesControllerImp.showArticle(42, null)
 
-        val result = articleController.startHD(55)
-        assertEquals(HttpStatusCode.NotFound, result)
+        assertEquals(HttpStatusCode.NotFound, article)
+    }
+
+    @Test
+    fun testArticleList() {
+        val model = mock<Model> {
+            val articles = ArrayList<Article>()
+
+            articles.add(Article(1, "Titre", "Un contenu"))
+            articles.add(Article(2, "Titre bis", "Un autre contenu"))
+            on { getArticleList() } doReturn articles
+        }
+
+        val articlesControllerImp = ArticleListControllerImpl(model)
+
+        val list = articlesControllerImp.startFM()
+
+        assertTrue(list is FreeMarkerContent)
+    }
+
+    @Test
+    fun testArticleCreate() {
+        val model = mock<Model> {}
+
+        val articlesControllerImp = ArticleControllerImpl(model)
+
+        val form = articlesControllerImp.createArticleForm()
+
+        assertTrue(form is FreeMarkerContent)
     }
 }

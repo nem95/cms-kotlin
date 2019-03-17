@@ -8,5 +8,6 @@ interface Model {
     fun createArticle(title: String, textContent: String): Any?
     fun deleteArticle(id: Int): Any?
     fun createComment (id: Int, textComment: String): Any?
+    fun deleteComment (id: Int): Any?
     fun getArticleComments (id: Int): Any
 }

@@ -111,6 +111,17 @@ class MysqlModel(url: String, user: String?, password: String?) : Model {
         return null
     }
 
+    override fun deleteComment(id: Int): Any? {
+        connectionPool.use { connection ->
+            connection.prepareStatement("DELETE FROM commentaire WHERE id = ?;").use { stmt ->
+                stmt.setInt(1, id)
+
+                return stmt.execute()
+            }
+        }
+        return null
+    }
+
     override fun getArticleComments (id: Int): List<Comment> {
 
         val comments = ArrayList<Comment>()

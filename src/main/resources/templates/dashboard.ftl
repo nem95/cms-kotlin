@@ -14,7 +14,7 @@
             <ul class="list-group" style="width: 100%">
                 <#list articles as article>
                     <li class="list-group-item">
-                        <a href="/admin/article/${article.id}">
+                        <a href="/article/${article.id}">
                             ${article.title}
                         </a>
                         <form action="/article/delete/${article.id}" method="post">

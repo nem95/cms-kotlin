@@ -60,7 +60,11 @@ fun Application.cmsApp(
 
         get("/article/{id}") {
             val id = call.parameters["id"]!!.toInt()
-            val content = articleController.showArticle(id)
+            val session: Session? = call.sessions.get<Session>()
+
+            val content = articleController.showArticle(id, session)
+
+
             call.respond(content)
         }
 
@@ -79,7 +83,11 @@ fun Application.cmsApp(
 
         get("/login") {
             val template = adminController.loginForm()
+            val session: Session? = call.sessions.get<Session>()
 
+            if(session !== null) {
+                call.respondRedirect("/")
+            }
             call.respond(template)
         }
 
@@ -124,6 +132,18 @@ fun Application.cmsApp(
                 articleController.delete(id)
 
                 call.respondRedirect("/admin")
+            }
+
+            post("/comment/delete/{id}") {
+                val id = call.parameters["id"]!!.toInt()
+
+                val postParameters: Parameters = call.receiveParameters()
+
+                val articleId = postParameters["article_id"]
+
+                articleController.deleteComment(id)
+
+                call.respondRedirect("/article/$articleId")
             }
 
             get("/logout") {

@@ -1,3 +1,5 @@
+<#-- @ftlvariable name="" type="fr.iim.iwm.a5.chatti.naim.IndexData" -->
+
 <#include "header.ftl">
     <main>
         <div class="container-fluid">
@@ -5,9 +7,20 @@
         </div>
         <div class="container">
             <div class="row">
-                <div class="py-3 pt-md-5 pb-md-4 text-left">
-                    <h1 class="display-4">${article.title}</h1>
+                <div class="col-sm-12 py-3 pt-md-5 pb-md-4 text-left">
+                    <div class="col-sm-6">
+                        <h1 class="display-4">${article.title}</h1>
+                    </div>
+                    <#if userConnected>
+                        <div class="col-sm-6">
+                            <form action="/article/delete/${article.id}" method="post">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
+                    </#if>
+
                     <p class="lead">${article.text}</p>
+
                 </div>
             </div>
         </div>
@@ -24,6 +37,15 @@
                                 <div class="row">
                                     <div class="col-md-1">
                                         <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
+
+                                        <#if userConnected>
+                                            <div class="col-sm-6">
+                                                <form action="/comment/delete/${comment.id}" method="post">
+                                                    <input hidden name="article_id" value="${article.id}">
+                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                </form>
+                                            </div>
+                                        </#if>
                                     </div>
                                     <div class="col-md-11">
                                         <p>${comment.text}</p>
